@@ -1,0 +1,26 @@
+{
+    "name": "sikofitt/mocks-drupal-variables",
+    "description": "Mock for drupal variable functions variable_(set,get,del)",
+    "type": "library",
+    "require": {
+        "werx/config": "1.3",
+        "symfony/yaml": "^3.1",
+        "hassankhan/config": "^0.10.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.5"
+    },
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "sikofitt",
+            "email": "sikofitt@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Sikofitt\\Mocks\\Drupal\\":"src/Sikofitt/Mocks/Drupal/"
+        },
+        "files": ["bootstrap.php"]
+    }
+}

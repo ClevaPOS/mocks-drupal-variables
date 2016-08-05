@@ -29,6 +29,10 @@ use werx\Config\Providers\JsonProvider;
  */
 class Variables extends AbstractConfig {
 
+  public function __construct() {
+
+  }
+
   /**
    * @param $data
    *

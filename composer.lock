@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4d4ebd354c6c8f007ca9ff6e10f15d6d",
-    "content-hash": "23ae934d44ab3909ec35d411c68680d3",
+    "hash": "4ca6c1efcbc049f58ae1ed1a3a592c11",
+    "content-hash": "c7d470d7f395e09723985f30dd2ecc5e",
     "packages": [
         {
             "name": "hassankhan/config",
@@ -65,17 +65,17 @@
             "time": "2016-02-11 16:21:17"
         },
         {
-            "name": "symfony/yaml",
+            "name": "symfony/filesystem",
             "version": "v3.1.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/yaml.git",
-                "reference": "1819adf2066880c7967df7180f4f662b6f0567ac"
+                "url": "https://github.com/symfony/filesystem.git",
+                "reference": "bb29adceb552d202b6416ede373529338136e84f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/1819adf2066880c7967df7180f4f662b6f0567ac",
-                "reference": "1819adf2066880c7967df7180f4f662b6f0567ac",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/bb29adceb552d202b6416ede373529338136e84f",
+                "reference": "bb29adceb552d202b6416ede373529338136e84f",
                 "shasum": ""
             },
             "require": {
@@ -89,7 +89,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Symfony\\Component\\Yaml\\": ""
+                    "Symfony\\Component\\Filesystem\\": ""
                 },
                 "exclude-from-classmap": [
                     "/Tests/"
@@ -109,50 +109,9 @@
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Symfony Yaml Component",
+            "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2016-07-17 14:02:08"
-        },
-        {
-            "name": "werx/config",
-            "version": "1.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/werx/config.git",
-                "reference": "70a8ea7d7b2b4f8358b1f03058b5f12b764dda6e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/werx/config/zipball/70a8ea7d7b2b4f8358b1f03058b5f12b764dda6e",
-                "reference": "70a8ea7d7b2b4f8358b1f03058b5f12b764dda6e",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">= 5.4"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.4.*",
-                "squizlabs/php_codesniffer": "1.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "werx\\Config\\": "src/",
-                    "werx\\Config\\Providers\\": "src/Providers"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Josh Moody",
-                    "email": "jgmoody@gmail.com"
-                }
-            ],
-            "description": "Use environment-specific configuration files in your app.",
-            "time": "2015-12-13 16:25:11"
+            "time": "2016-07-20 05:44:26"
         }
     ],
     "packages-dev": [
@@ -1355,6 +1314,55 @@
             "time": "2016-02-04 12:56:52"
         },
         {
+            "name": "symfony/yaml",
+            "version": "v3.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/yaml.git",
+                "reference": "1819adf2066880c7967df7180f4f662b6f0567ac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/1819adf2066880c7967df7180f4f662b6f0567ac",
+                "reference": "1819adf2066880c7967df7180f4f662b6f0567ac",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Yaml\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Yaml Component",
+            "homepage": "https://symfony.com",
+            "time": "2016-07-17 14:02:08"
+        },
+        {
             "name": "webmozart/assert",
             "version": "1.0.2",
             "source": {
@@ -1409,6 +1417,8 @@
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": ">=5.4"
+    },
     "platform-dev": []
 }

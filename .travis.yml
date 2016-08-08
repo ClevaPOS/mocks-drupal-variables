@@ -16,7 +16,7 @@ matrix:
   - php: nightly
 
 before_script:
-  - composer install --dev
+  - composer install
 
 script:
   - mkdir -p build/logs

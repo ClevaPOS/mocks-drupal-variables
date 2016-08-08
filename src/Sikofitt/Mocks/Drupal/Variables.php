@@ -149,7 +149,7 @@ class Variables extends \ArrayObject
         file_get_contents(
           sys_get_temp_dir().self::VARIABLE_NAMESPACE.self::VARIABLE_TEMP_FILE_NAME))
     ) {
-            $this->config = [];
+            $this->config = array();
         }
     }
 

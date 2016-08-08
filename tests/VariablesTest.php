@@ -50,7 +50,7 @@ class VariablesTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('subVariableName1', variable_get('variableName4'));
         $this->assertArraySubset($this->keyedArrayData, variable_get('variableName4'));
         $this->assertEquals($this->object, variable_get('variableObjectName1'));
-        $this->assertNotSame('variableValue1', []);
+        $this->assertNotSame('variableValue1', array());
         $this->assertSame(0, variable_get('thisVariableDoesntExist', 0));
         $this->assertNull(variable_get('thisVariableDoesntExist'));
     }

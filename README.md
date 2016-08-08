@@ -1,4 +1,4 @@
-# Drupal Variable Mock
+# Drupal Variable Mock [![Build Status](https://travis-ci.org/sikofitt/mocks-drupal-variables.svg?branch=v1.0.2)](https://travis-ci.org/sikofitt/mocks-drupal-variables)
 
 Mocks for drupal variable functions variable_(set,get,del) for testing outside of Drupal
 

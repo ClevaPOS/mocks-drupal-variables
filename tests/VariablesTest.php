@@ -38,7 +38,7 @@ class VariablesTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Variables::variable_get
+     * @covers Sikofitt\Mocks\Drupal\Variables::variable_get
      */
     public function testVariableGet()
     {
@@ -56,7 +56,7 @@ class VariablesTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Variables::variable_set
+     * @covers Sikofitt\Mocks\Drupal\Variables::variable_set
      */
     public function testVariableSet()
     {
@@ -68,7 +68,7 @@ class VariablesTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Variables::variable_del
+     * @covers Sikofitt\Mocks\Drupal\Variables::variable_del
      */
     public function testVariableDel()
     {
@@ -84,10 +84,10 @@ class VariablesTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Variables::createTempDirectory
-     * @covers Variables::touchConfigFile
-     * @covers Variables::parseConfig
-     * @covers Variables::writeConfig
+     * @covers Sikofitt\Mocks\Drupal\Variables::createTempDirectory
+     * @covers Sikofitt\Mocks\Drupal\Variables::touchConfigFile
+     * @covers Sikofitt\Mocks\Drupal\Variables::parseConfig
+     * @covers Sikofitt\Mocks\Drupal\Variables::writeConfig
      */
     public function testTempFile()
     {

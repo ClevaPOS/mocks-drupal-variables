@@ -14,8 +14,6 @@
 
 use Sikofitt\Mocks\Drupal\Variables;
 
-define('CONFIG_PATH', __DIR__ . '/storage');
-
 
 if(!function_exists('variable_get'))
 {

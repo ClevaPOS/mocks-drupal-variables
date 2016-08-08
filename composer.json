@@ -1,15 +1,14 @@
 {
     "name": "sikofitt/mocks-drupal-variables",
     "description": "Mock for drupal variable functions variable_(set,get,del)",
+    "keywords": ["drupal", "mock", "config"],
     "type": "library",
     "require": {
-        "php": ">=5.4",
-        "hassankhan/config": "~0.10",
-        "symfony/filesystem": "^3.1"
-
+        "php": ">=5.4"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.5"
+        "phpunit/phpunit": "^5.5",
+        "phpunit/php-code-coverage": "4.0.*"
     },
     "license": "GPL-3.0",
     "authors": [

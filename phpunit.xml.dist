@@ -7,15 +7,21 @@
          beStrictAboutOutputDuringTests="true"
          beStrictAboutTestsThatDoNotTestAnything="true"
          beStrictAboutTodoAnnotatedTests="true"
+         stopOnFailure="false"
+         syntaxCheck="false"
          verbose="true"
          colors="true">
-    <testsuite>
-        <directory suffix="Test.php">tests</directory>
+    <testsuite name="Drupal mock variables, variable_* tests">
+        <directory suffix="Test.php">./tests</directory>
     </testsuite>
+
+    <logging>
+        <log type="coverage-clover" target="build/logs/clover.xml" />
+    </logging>
 
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">src</directory>
+            <directory suffix=".php">./src</directory>
         </whitelist>
     </filter>
 </phpunit>

@@ -14,56 +14,33 @@
 
 namespace Sikofitt\Mocks\Drupal;
 
-use Noodlehaus\AbstractConfig;
-use Noodlehaus\Config;
-use Noodlehaus\Exception\EmptyDirectoryException;
-use SebastianBergmann\CodeCoverage\Report\Html\File;
-use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Yaml\Yaml;
-
-
 /**
  * Class Variables
  *
  * @package Sikofitt\Mocks\Drupal
  */
-class Variables extends AbstractConfig
+class Variables extends \ArrayObject
 {
-    const VARIABLE_TEMP_DIR = '/sikofitt/mocks/drupal';
-    const VARIABLE_NAMESPACE = '/sikofitt/mocks/drupal';
 
-    public function tempDirectoryExists()
-    {
+  /**
+   *
+   */
+  const VARIABLE_NAMESPACE = '/sikofitt/mocks/drupal/';
 
-        return file_exists(sys_get_temp_dir() . self::VARIABLE_TEMP_DIR);
+  /**
+   *
+   */
+  const VARIABLE_TEMP_FILE_NAME = 'config.tmp';
 
-    }
+  /**
+   * @var
+   */
+  private $config;
 
-    private function tempFileExists()
-    {
-        return file_exists(sys_get_temp_dir() . self::VARIABLE_TEMP_DIR . '/config.yml');
-    }
-
-    private function createTempDirectory()
-    {
-        mkdir(sys_get_temp_dir() . '/sikofitt/mocks/drupal', 0775, true);
-
-    }
-
-    private function touchConfigFile()
-    {
-        touch(sys_get_temp_dir() . self::VARIABLE_TEMP_DIR . '/config.yml');
-    }
-
-    private function parseConfig()
-    {
-        if (null === $config = Yaml::parse(file_get_contents(sys_get_temp_dir() . self::VARIABLE_TEMP_DIR . '/config.yml'))) {
-            $config = [];
-        }
-        return $config;
-    }
-
-    public function __construct()
+  /**
+   * Variables constructor.
+   */
+  public function __construct($data = null)
     {
         if (!$this->tempDirectoryExists()) {
             $this->createTempDirectory();
@@ -71,107 +48,123 @@ class Variables extends AbstractConfig
         if (!$this->tempFileExists()) {
             $this->touchConfigFile();
         }
-        $config = $this->parseConfig();
-
-
-        parent::__construct($config);
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getData()
-    {
-        return $this->data;
-    }
-
-    public function variable_set($variableName, $variableValue)
-    {
-        $this->set($variableName, serialize($variableValue));
-        $this->writeConfig();
-
-    }
-
-    private function cleanTempDirectory()
-    {
-        $tempDirectory = new Filesystem();
-        $tempDirectory->remove(sys_get_temp_dir() . '/sikofitt');
-
-        return false === $tempDirectory->exists(sys_get_temp_dir() . '/sikofitt');
-    }
-
-    private function makeTempDirectory()
-    {
-        $tempDirectory = new Filesystem();
-        $tempDirectory->mkdir(sys_get_temp_dir() . self::VARIABLE_NAMESPACE);
-        return $tempDirectory->exists(sys_get_temp_dir() . self::VARIABLE_TEMP_DIR);
-    }
-
-    private function writeConfig()
-    {
-        $yaml = Yaml::dump($this->all());
-        file_put_contents(sys_get_temp_dir() . self::VARIABLE_TEMP_DIR . '/config.yml', $yaml);
-
-
-    }
-
-    public function variable_get($variableName, $default = null)
-    {
-
-        $variableValue = $this->get($variableName, $default);
-        return unserialize($variableValue);
-    }
-
-    public function variable_del($variableName)
-    {
-
-        if ($this->offsetExists($variableName)) {
-            unset($this->data[$variableName]);
+        if($data !== null && (is_array($data) || is_object($data)))
+        {
+          $this->exchangeArray($data);
+          $this->writeConfig();
         }
-        $this->writeConfig();
+        $this->parseConfig();
+        parent::__construct($this->config);
     }
 
-    private function resetConfig()
+  /**
+   * @param      $variableName
+   * @param null $default
+   *
+   * @return mixed|null
+   */
+  public function variable_get($variableName, $default = null)
+  {
+    if ($this->offsetExists($variableName)) {
+      return unserialize($this->offsetGet($variableName));
+    } else {
+      return $default;
+    }
+  }
+
+  /**
+   * @param $variableName
+   * @param $variableValue
+   *
+   * @return null
+   */
+  public function variable_set($variableName, $variableValue)
+  {
+    $this->offsetSet($variableName, serialize($variableValue));
+    $this->writeConfig();
+    return null;
+  }
+
+  /**
+   * @param $variableName
+   *
+   * @return null
+   */
+  public function variable_del($variableName)
+  {
+    if ($this->offsetExists($variableName)) {
+      $this->offsetUnset($variableName);
+      $this->writeConfig();
+    }
+    return null;
+  }
+
+  /**
+   * @return bool
+   */
+  public function tempDirectoryExists()
     {
-        $config = new Config(CONFIG_PATH);
-        $this->setData($config->all());
+        return file_exists(sys_get_temp_dir().self::VARIABLE_NAMESPACE);
     }
 
-    /**
-     * @param $data
-     *
-     * @return $this
-     */
-    public function setData($data)
+  /**
+   * @return bool
+   */
+  private function tempFileExists()
     {
-        $this->data = $data;
-        return $this;
+        return file_exists(
+      sys_get_temp_dir().self::VARIABLE_NAMESPACE.self::VARIABLE_TEMP_FILE_NAME);
     }
 
-    private function is_serialized($data)
+  /**
+   * @return void
+   */
+  private function createTempDirectory()
     {
-        // if it isn't a string, it isn't serialized
-        if (!is_string($data))
-            return false;
-        $data = trim($data);
-        if ('N;' == $data)
-            return true;
-        if (!preg_match('/^([adObis]):/', $data, $badions))
-            return false;
-        switch ($badions[1]) {
-            case 'a' :
-            case 'O' :
-            case 's' :
-                if (preg_match("/^{$badions[1]}:[0-9]+:.*[;}]\$/s", $data))
-                    return true;
-                break;
-            case 'b' :
-            case 'i' :
-            case 'd' :
-                if (preg_match("/^{$badions[1]}:[0-9.E-]+;\$/", $data))
-                    return true;
-                break;
+        try {
+            mkdir(sys_get_temp_dir().self::VARIABLE_NAMESPACE, 0775, true);
+        } catch (\Exception $e) {
+            trigger_error($e->getMessage(), E_USER_ERROR);
         }
-        return false;
+    }
+
+  /**
+   * @return void
+   */
+  private function touchConfigFile()
+    {
+        try {
+            touch(sys_get_temp_dir().self::VARIABLE_NAMESPACE.self::VARIABLE_TEMP_FILE_NAME);
+        } catch (\Exception $e) {
+            trigger_error($e->getMessage(), E_USER_ERROR);
+        }
+    }
+
+  /**
+   * @return void
+   */
+  private function parseConfig()
+    {
+        if (null === $this->config = json_decode(
+        file_get_contents(
+          sys_get_temp_dir().self::VARIABLE_NAMESPACE.self::VARIABLE_TEMP_FILE_NAME))
+    ) {
+            $this->config = [];
+        }
+    }
+
+  /**
+   * @return void
+   */
+  private function writeConfig()
+    {
+        $data = json_encode($this->getArrayCopy());
+        try {
+            file_put_contents(
+        sys_get_temp_dir().self::VARIABLE_NAMESPACE.self::VARIABLE_TEMP_FILE_NAME,
+        $data);
+        } catch (\Exception $e) {
+            trigger_error($e->getMessage(), E_USER_ERROR);
+        }
     }
 }
